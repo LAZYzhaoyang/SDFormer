@@ -13,13 +13,13 @@ Damage identification is a key problem in the field of structural health monitor
 
 All codes of this paper have been uploaded. 
 
-## 2022/03/04
-
-The demo code GenMaskDemo.py for generating random damage areas was uploaded. 
-
 Updated instructions on how to generate datasets. See 'HowToGenerateTheDataset.md' for details. 
 
 Updated instructions on how to train and test the model. See 'HowToTrainAndTestModel.md' for details. ('HowToTrainAndTestModel.md' is still being updated.)
+
+## 2022/03/04
+
+The demo code GenMaskDemo.py for generating random damage areas was uploaded. 
 
 ## 2022/02/14
 
