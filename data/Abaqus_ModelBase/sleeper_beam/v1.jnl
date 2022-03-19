@@ -1,0 +1,7 @@
+# Save by 36246 on 2021_05_12-10.45.13; build 2021 2020_03_06-22.50.37 167380
+from abaqus import *
+upgradeMdb(
+    'E:/MasterProgram/Paper/Damage-detection-of-sleeper-beam-in-Subway/code/Abaqus/v1-2019.cae'
+    , 
+    'E:/MasterProgram/Paper/Damage-detection-of-sleeper-beam-in-Subway/code/Abaqus/v1.cae')
+# Save by 36246 on 2021_05_12-10.45.13; build 2021 2020_03_06-22.50.37 167380
