@@ -127,16 +127,8 @@ class noise_test_config(object):
         self.device = opt.device
         self.color_array = opt.color_array
         # our model configs
-        self.plate_swin_model_configs =[opt.Swin64Tconfig, 
-                                        opt.Swin64Sconfig, 
-                                        opt.Swin64Mconfig, 
-                                        opt.Swin64Bconfig, 
-                                        opt.Swin64Lconfig]
-        self.sleeperbeam_swin_model_configs = [opt.Swin264Tconfig,
-                                               opt.Swin264Sconfig,
-                                               opt.Swin264Mconfig,
-                                               opt.Swin264Bconfig,
-                                               opt.Swin264Lconfig]
+        self.plate_swin_model_configs =[opt.configs[1]]
+        self.sleeperbeam_swin_model_configs = [opt.configs[2]]
         
         # model list
         self.model_names, self.model_paths, self.model_configs, self.model_label = self.get_model_list()
@@ -150,10 +142,10 @@ class noise_test_config(object):
         
     def get_model_list(self):
         if self.datasetname == 'plate':
-            mymodels = ['Swin64T', 'Swin64S','Swin64M','Swin64B','Swin64L']
+            mymodels = ['SDFormer64']
             mymodelconfigs = self.plate_swin_model_configs
         elif self.datasetname == 'sleeper_beam':
-            mymodels = ['Swin264T', 'Swin264S', 'Swin264M', 'Swin264B', 'Swin264L']
+            mymodels = ['SDFormer264']
             mymodelconfigs = self.sleeperbeam_swin_model_configs
         else:
             ValueError('datasetname must be plate or sleeper_beam')
@@ -187,7 +179,7 @@ class noise_test_config(object):
             
         model_configs.extend(mymodelconfigs)
         # model label in the figure
-        model_label.extend(['Swin-T', 'Swin-S','Swin-M','SDFormer','Swin-L'])
+        model_label.extend(['SDFormer'])
         
         return model_names, model_paths, model_configs, model_label
     
@@ -297,8 +289,8 @@ def main(opt):
     # create model
     noise_config = noise_test_config(opt)
     noise_test_result = noise_test(noise_config=noise_config)
-    print(noise_config.model_label[3:19:5])
-    model_list = noise_config.model_label[3:19:5]
+    print(noise_config.model_label[3,8,13,15])
+    model_list = noise_config.model_label[3,8,13,15]
     plot_result(noise_config, noise_test_result, model_list, 'SDFormer')
 
 
