@@ -9,102 +9,27 @@ import numpy as np
 import os
 
 
-Swin64Tconfig = {'name':'SwinTransformer',
-                 'hidden_dim':[32,64,128],
-                 'layers':[2,2,4],
-                 'heads':[3,6,12],
-                 'window_size': [4,4,4],
-                 'down_scaling_factors':[2,2,2],
-                 'head_dim':32,
-                 'relative_pos_embedding':True,
-                 'skip_connect':True}
 
-Swin64Sconfig = {'name':'SwinTransformer',
-                'hidden_dim':[32,64,128],
-                'layers':[2,2,12],
-                'heads':[3,6,12],
-                'window_size': 4,
-                'down_scaling_factors':[2,2,2],
-                'head_dim':32,
-                'relative_pos_embedding':True,
-                'skip_connect':True}
+SDFormer_plate_config = {'name':'SwinTransformer',
+                         'hidden_dim':[64,128,256],
+                         'layers':[2,2,16],
+                         'heads':[4,8,16],
+                         'window_size': 4,
+                         'down_scaling_factors':[2,2,2],
+                         'head_dim':32,
+                         'relative_pos_embedding':True,
+                         'skip_connect':True}
 
-Swin64Mconfig = {'name':'SwinTransformer',
-                'hidden_dim':[48,96,192],
-                'layers':[2,2,14],
-                'heads':[3,6,12],
-                'window_size': 4,
-                'down_scaling_factors':[2,2,2],
-                'head_dim':32,
-                'relative_pos_embedding':True,
-                'skip_connect':True}
+SDFormer_sleeper_config = {'name':'SwinTransformer',
+                           'hidden_dim':[64,128,256],
+                           'layers':[2,2,16],
+                           'heads':[4,8,16],
+                           'window_size':[[4,4],[4,4],[4,4]],
+                           'down_scaling_factors':[2,2,2],
+                           'head_dim':32,
+                           'relative_pos_embedding':True,
+                           'skip_connect':True}
 
-Swin64Bconfig = {'name':'SwinTransformer',
-                'hidden_dim':[64,128,256],
-                'layers':[2,2,16],
-                'heads':[4,8,16],
-                'window_size': 4,
-                'down_scaling_factors':[2,2,2],
-                'head_dim':32,
-                'relative_pos_embedding':True,
-                'skip_connect':True}
-
-Swin64Lconfig = {'name':'SwinTransformer',
-                'hidden_dim':[96,192,384],
-                'layers':[2,2,18],
-                'heads':[6,12,24],
-                'window_size': 4,
-                'down_scaling_factors':[2,2,2],
-                'head_dim':32,
-                'relative_pos_embedding':True,
-                'skip_connect':True}
-
-Swin264Tconfig = {'name':'SwinTransformer',
-                'hidden_dim':[32,64,128],
-                'layers':[2,2,4],
-                'heads':[3,6,12],
-                'window_size':[[4,4],[4,4],[4,4]],
-                'down_scaling_factors':[2,2,2],
-                'head_dim':32,
-                'relative_pos_embedding':True,
-                'skip_connect':True}
-
-Swin264Sconfig = {'name':'SwinTransformer',
-                'hidden_dim':[32,64,128],
-                'layers':[2,2,12],
-                'heads':[3,6,12],
-                'window_size':[[4,4],[4,4],[4,4]],
-                'down_scaling_factors':[2,2,2],
-                'head_dim':32,
-                'relative_pos_embedding':True,
-                'skip_connect':True}
-Swin264Mconfig = {'name':'SwinTransformer',
-                'hidden_dim':[48,96,192],
-                'layers':[2,2,14],
-                'heads':[3,6,12],
-                'window_size':[[4,4],[4,4],[4,4]],
-                'down_scaling_factors':[2,2,2],
-                'head_dim':32,
-                'relative_pos_embedding':True,
-                'skip_connect':True}
-Swin264Bconfig = {'name':'SwinTransformer',
-                'hidden_dim':[64,128,256],
-                'layers':[2,2,16],
-                'heads':[4,8,16],
-                'window_size':[[4,4],[4,4],[4,4]],
-                'down_scaling_factors':[2,2,2],
-                'head_dim':32,
-                'relative_pos_embedding':True,
-                'skip_connect':True}
-Swin264Lconfig = {'name':'SwinTransformer',
-                'hidden_dim':[96,192,384],
-                'layers':[2,2,18],
-                'heads':[6,12,24],
-                'window_size':[[4,4],[4,4],[4,4]],
-                'down_scaling_factors':[2,2,2],
-                'head_dim':32,
-                'relative_pos_embedding':True,
-                'skip_connect':True}
 
 def get_segmodel_config(model_type='Unet', backbone_name='resnet18'):
     segmodelConfig = {'name':'Segmodel',
@@ -133,10 +58,8 @@ class config(object):
         if self.task =='gen':
             self.is_seg=False
         #==================model setting==================#
-        self.model_index = 4
-        self.basic_model_names = ['model',
-                                  'Swin64T', 'Swin64S','Swin64M','Swin64B','Swin64L', 
-                                  'Swin264T', 'Swin264S', 'Swin264M', 'Swin264B', 'Swin264L']
+        self.model_index = 1
+        self.basic_model_names = ['model','SDFormer64', 'SDFormer264']
         self.model_name = self.task + '_' + self.basic_model_names[self.model_index] + '_' + self.datasetnames[self.datasetindex]
         
         self.input_channel = 3
@@ -147,16 +70,8 @@ class config(object):
         if self.model_index==0:
             self.model_name = self.model_name+'_'+self.segmodelConfig['model_name']+'_'+self.segmodelConfig['encoder']
         self.configs = [self.segmodelConfig,  
-                        Swin64Tconfig, 
-                        Swin64Sconfig, 
-                        Swin64Mconfig,
-                        Swin64Bconfig, 
-                        Swin64Lconfig, 
-                        Swin264Tconfig,
-                        Swin264Sconfig,
-                        Swin264Mconfig,
-                        Swin264Bconfig,
-                        Swin264Lconfig]
+                        SDFormer_plate_config, 
+                        SDFormer_sleeper_config]
         #==================data path==================#
         self.test_result_save_path = './prediction_result/EN'
         self.save_model_path = './user_data/EN/model_data'
