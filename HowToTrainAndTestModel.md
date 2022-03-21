@@ -26,6 +26,8 @@ Note: The 'test.py' script will also only test the models specified in the './ut
 
 ## 4. Noise Testing
 
+Run the 'noisetest.py' script in Python to get the anti-noise test results of all the trained models. 
+
 ---------------------
 
 The remaining steps will be updated soon......
