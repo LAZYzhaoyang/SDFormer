@@ -217,10 +217,14 @@ def noise_test(noise_config, best_model=True):
             filename = os.path.join(model_path, model_name + 'checkpoint-best.pth')
         else:
             filename = os.path.join(model_path, model_name + 'last-epoch.pth')
-        ckpt = torch.load(filename,map_location=torch.device('cpu'))
-        epoch_start = ckpt['epoch']
-        net.load_state_dict(ckpt['state_dict'])
-        net.to(device=noise_config.device)
+        if os.path.exists(filename):
+            ckpt = torch.load(filename,map_location=torch.device('cpu'))
+            epoch_start = ckpt['epoch']
+            net.load_state_dict(ckpt['state_dict'])
+            net.to(device=noise_config.device)
+        else:
+            epoch_start=0
+            print('Could not found file {}'.format(filename)
         net.eval()
         
         logger.info('Noise test result information')
