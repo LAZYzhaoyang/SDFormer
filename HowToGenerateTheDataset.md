@@ -1,4 +1,4 @@
-# How to Generarte the dataset
+# How to Generate the dataset
 Two datasets, plate and sleeper beam, are used in this paper, and the generation steps of these two datasets are the same. Here, we will take the plate dataset as an example to introduce the steps of generating the dataset.
 
 1. Confirm the parameters in "./data/Abaqus_ModelBase/plate/config.py".
