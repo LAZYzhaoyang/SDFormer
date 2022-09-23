@@ -831,17 +831,14 @@ class SwinTransformerDecoder(nn.Module):
         self.skip_connect = skip_connect
 
     def forward(self, x):
-        if self.skip_connect:
-            #print(x[0].shape)
-            out = self.decoders[0](x[0])
-            for i in range(len(self.decoders)-1):
-                out = torch.cat((out, x[i+1]), dim=1)
-                out = self.decoders[i+1](out)
-        else:
-            for i in range(len(self.decoders)):
-                x = self.decoders[i](x)
-            out = x
-        return out
+        res = self.decoders[0](x[0])
+        for i in range(len(self.decoders)-1): 
+            if self.skip_connect:
+                res = torch.cat((res, x[i+1]), dim=1)
+            else:
+                res = res+x[i+1]
+            res = self.decoders[i+1](res)
+        return res
 
 #============================Swin Visual Transformer============================#
 
